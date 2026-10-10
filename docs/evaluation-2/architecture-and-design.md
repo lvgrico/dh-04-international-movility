@@ -305,7 +305,7 @@ flowchart LR
 | C-DB | Durable records, constraints, audit, outbox | Business policy |
 | C-DOCS | File bytes, encrypted at rest | Authorization (API enforces it) |
 
-**Technology binding (to be confirmed by the team):** relational DB with row-level locking and transactions (PostgreSQL proposed); web framework/language `[TEAM TO COMPLETE]`. The design depends on the *properties* (transactions, locks, constraints), not on a framework.
+**Technology binding (to be confirmed by the team):** relational DB with row-level locking and transactions (PostgreSQL); web framework/language (TypeSript(NestJS + React)). The design depends on the *properties* (transactions, locks, constraints), not on a framework.
 
 ## 5.3 V-COMP — Inside the Backend API
 
