@@ -43,8 +43,8 @@ architecture_document: architecture-and-design.md
 validation_plan: validation/test-plan.md
 project_status: project-status.md
 implementation:
-  implemented_use_cases: []        # fill with real items
-  designed_not_implemented: []     # fill
+  implemented_use_cases: []        
+  designed_not_implemented: []     
   simulated_integrations: [identity-provider, sis, partner-portal, notification-gateway]
   real_integrations: []
 evidence:

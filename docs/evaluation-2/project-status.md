@@ -7,19 +7,19 @@ Design status reflects `architecture-and-design.md`. **Implementation and valida
 
 | Concern | Design | Implementation | Validation |
 |---|---|---|---|
-| Opportunities + versioned requirements | Documented (ADR-001) | `[TEAM TO COMPLETE]` | T-VER-01 — not executed |
-| Application submission + eligibility (SIS) | Documented (ADR-005) | `[TEAM TO COMPLETE]` | T-ELIG-01, T-INT-01 — not executed |
-| Documents + versions + expiry | Documented (ADR-008) | `[TEAM TO COMPLETE]` | T-DOC-01/02 — not executed |
-| Triage, academic review, routing | Documented (state machine) | `[TEAM TO COMPLETE]` | T-LIFE-01 — not executed |
-| Nomination + quota + override | Documented (ADR-003) | `[TEAM TO COMPLETE]` | T-QUO-01…04 — not executed |
-| Partner change, return for reapplication, reopened period, priority | Documented (ADR-010) | `[TEAM TO COMPLETE]` | T-CHG-01…03, T-PRI-01 — not executed |
-| Student acceptance (one per term), offer window | Documented (ADR-011) | `[TEAM TO COMPLETE]` | T-ACC-01…03 — not executed |
-| Partner selection | Documented — **interpretation pending (CL-023)** | `[TEAM TO COMPLETE]` | T-SEL-01 — not executed |
-| Host decision + pre-departure | Documented (ADR-004) | `[TEAM TO COMPLETE]` | T-STAT-01 — not executed |
-| Audit | Documented (ADR-006) | `[TEAM TO COMPLETE]` | T-AUD-01/02 — not executed |
-| Notifications + reminders | Documented (ADR-007) | `[TEAM TO COMPLETE]` | T-NOT-01 — not executed |
-| Reporting | Partially documented — **thresholds open (CL-016)** | `[TEAM TO COMPLETE]` | T-RPT-01 — blocked |
-| Authentication / authorization | Documented (ADR-009) | `[TEAM TO COMPLETE]` | T-SEC-01…06 — not executed |
+| Opportunities + versioned requirements | Documented (ADR-001) | `[NOT STARTED]` | T-VER-01 — not executed |
+| Application submission + eligibility (SIS) | Documented (ADR-005) | `[NOT STARTED]` | T-ELIG-01, T-INT-01 — not executed |
+| Documents + versions + expiry | Documented (ADR-008) | `[NOT STARTED]` | T-DOC-01/02 — not executed |
+| Triage, academic review, routing | Documented (state machine) | `[NOT STARTED]` | T-LIFE-01 — not executed |
+| Nomination + quota + override | Documented (ADR-003) | `[NOT STARTED]` | T-QUO-01…04 — not executed |
+| Partner change, return for reapplication, reopened period, priority | Documented (ADR-010) | `[NOT STARTED]` | T-CHG-01…03, T-PRI-01 — not executed |
+| Student acceptance (one per term), offer window | Documented (ADR-011) | `[NOT STARTED]` | T-ACC-01…03 — not executed |
+| Partner selection | Documented — **interpretation pending (CL-023)** | `[NOT STARTED]` | T-SEL-01 — not executed |
+| Host decision + pre-departure | Documented (ADR-004) | `[NOT STARTED]` | T-STAT-01 — not executed |
+| Audit | Documented (ADR-006) | `[NOT STARTED]` | T-AUD-01/02 — not executed |
+| Notifications + reminders | Documented (ADR-007) | `[NOT STARTED]` | T-NOT-01 — not executed |
+| Reporting | Partially documented — **thresholds open (CL-016)** | `[NOT STARTED]` | T-RPT-01 — blocked |
+| Authentication / authorization | Documented (ADR-009) | `[NOT STARTED]` | T-SEC-01…06 — not executed |
 
 ## 2. Risk register — update
 
@@ -47,10 +47,10 @@ Existing risks R-001…R-009 stay in the project workbook. Changes and additions
 
 | ID | Question | Design element waiting on it | Needed by |
 |---|---|---|---|
-| CL-006 | **Answered by the client:** a material partner change returns all applications, who reapply from scratch in a new period (priority for previously approved). **Record as closed in the workbook; reverse ASM-004; rewrite SC-10 and the STK-03 acceptance criterion.** | ADR-001/010, QS-02 | Now |
+| CL-006 | **Answered by the client:** a material partner change returns all applications, who reapply from scratch in a new period (priority for previously approved). | ADR-001/010, QS-02 | Now |
 | CL-008 (open) | Which role may override | ADR-009, authorization matrix | Before US-023 |
-| CL-014…CL-018 (new, section 2.3 of the design doc) | See design document | Quota count, submit behaviour, reports, privacy, notifications | `[DATE — TEAM TO COMPLETE]` |
-| CL-019…CL-023 (new) | Material boundary (place reduction, shorter deadline); priority meaning; returning admitted/accepted students; meaning of term and offer window; partner selection vs quota | ADR-001/003/010/011 | `[DATE — TEAM TO COMPLETE]` |
+| CL-014…CL-018 (new, section 2.3 of the design doc) | See design document | Quota count, submit behaviour, reports, privacy, notifications | `[DATE NOT SET YET]` |
+| CL-019…CL-023 (new) | Material boundary (place reduction, shorter deadline); priority meaning; returning admitted/accepted students; meaning of term and offer window; partner selection vs quota | ADR-001/003/010/011 | `[DATE NOT SET YET]` |
 
 ## 4. Backlog and workbook reconciliation
 
@@ -71,7 +71,7 @@ Revision 1.1 of the Evaluation 1 documents ([`../evaluation-1/`](../evaluation-1
 
 **Sprint load after the additions (story points, with the proposed estimates):** Sprint 1 = 39, Sprint 2 = 47, Sprint 3 = 47, Sprint 4 = 47, Sprint 5 = 52 (before: 31, 42, 42, 34, 16). Sprint 5 now concentrates the partner-change work (US-038 to US-041, US-045), which is the riskiest part of the design. Re-plan so that the spike ENB-08 and the first slice of the change workflow happen earlier.
 
-**Proposed architecture-enabling items** (suggested sprint = proposal; adjust to the real plan):
+**Proposed architecture-enabling items**:
 
 | ID | Item | Why | Suggested sprint | Depends on |
 |---|---|---|---|---|
@@ -88,46 +88,10 @@ Revision 1.1 of the Evaluation 1 documents ([`../evaluation-1/`](../evaluation-1
 
 | Work item | Linked evidence | Owner | Due | Completion evidence |
 |---|---|---|---|---|
-| Confirm CL-006, CL-008, CL-014…018 with stakeholders | R-001, R-004, R-010…R-012, R-016 | `[NAME]` | `[DATE]` | Answers recorded in Clarification Log; ADRs updated |
-| Run PoC steps 1–6 | QS-01…04, T-QUO-01, T-VER-01, T-INT-01, T-AUD-01/02 | `[NAME]` | `[DATE]` | `validation/evidence/…` with commit, command, raw output |
-| Review revision 1.1 of the Evaluation 1 documents and validate the decisions marked *validate with client* | Traceability, CL-006, CL-024, CL-025 | `[NAME]` | `[DATE]` | Confirmed answers in the Clarification Log; highlights cleared |
-| Confirm authorization matrix with IT Services | QS-05, ADR-009 | `[NAME]` | `[DATE]` | Signed-off matrix |
-| Reconcile diagrams, names and IDs | V-CONT, V-COMP, V-DATA | `[NAME]` | `[DATE]` | Consistency check |
-| Dry-run the review defence | Section 7 | All | `[DATE]` | Every member explains one chain |
+| Confirm CL-006, CL-008, CL-014…018 with stakeholders | R-001, R-004, R-010…R-012, R-016 | All | 10/15/2026 | Answers recorded in Clarification Log; ADRs updated |
+| Run PoC steps 1–6 | QS-01…04, T-QUO-01, T-VER-01, T-INT-01, T-AUD-01/02 | Paulina | `[DATE NOT SET]` | `validation/evidence/…` with commit, command, raw output |
+| Review revision 1.1 of the Evaluation 1 documents and validate the decisions marked *validate with client* | Traceability, CL-006, CL-024, CL-025 | Laura | `[DATE NOT SET]` | Confirmed answers in the Clarification Log; highlights cleared |
+| Confirm authorization matrix with IT Services | QS-05, ADR-009 | Daniel | `[DATE NOT SET]` | Signed-off matrix |
+| Reconcile diagrams, names and IDs | V-CONT, V-COMP, V-DATA | Jesús | `[DATE NOT SET]` | Consistency check |
+| Dry-run the review defence | Section 7 | All | `[DATE NOT SET]` | Every member explains one chain |
 
-If a finding changes the design, update the affected ADR, view, interface, risk and test together.
-
-## 6. Submission checklist
-
-- [ ] Names, owners, dates and commit filled in (no `[TEAM TO COMPLETE]` left).
-- [ ] Revision 1.1 of the Evaluation 1 documents reviewed by the team; items marked *validate with client* confirmed with the Mobility Coordinator.
-- [ ] Mermaid diagrams render in your repository viewer (export to PNG if needed).
-- [ ] Implementation and validation status reflect reality; no "executed" claim without evidence.
-- [ ] README links only to files that exist.
-- [ ] Every member can explain the chains in section 7.
-
-## 7. Review preparation — suggested story (≈10 min) and likely questions
-
-**Story.** (1) Problem and the three decisions that must not be confused. (2) The five drivers that shaped everything: versioned requirements, quota integrity, distinct decisions, audit, resilient integrations. (3) Why a modular monolith, one rejected alternative and its cost. (4) Context → container → the quota sequence. (5) What we validated or plan to validate, and what remains open (CL-006, CL-008).
-
-**Trace you must be able to walk, forward and backward:**
-- *Quota:* US-022/023 → SC-03 → QS-01 → AD-02 → ADR-003 → V-SEQ-02 + data model → T-QUO-01/02/03 → evidence or gap.
-- *Versions:* US-002/004 → SC-10 → QS-02 → AD-01 → ADR-001 → V-SEQ-03 → T-VER-01.
-- *Distinct decisions:* US-024/025 → SC-06 → R-003 → AD-03 → ADR-004 → V-STATE-NOM → T-STAT-01, T-UX-01.
-
-- *Partner change:* client rule → BR-05/15/19 → QS-02 → AD-01 → ADR-001/010 → V-SEQ-03 + 6.4 → T-CHG-01/02/03 → evidence or gap.
-- *Acceptance:* BR-16 → QS-08 → AD-08 → ADR-011 → V-SEQ-04 + 6.5 → T-ACC-01/02/03.
-
-**Questions to rehearse:**
-1. Why a lock instead of a counter or a UI check? What gets worse?
-2. If the SIS is down, what exactly is saved and what does the student see?
-3. What happens to old applications when a partner changes requirements? (Answer honestly: CL-006 is open; here is the provisional rule.)
-4. Why is nomination a separate record from the application?
-5. Who can override, and how do we prove it was justified? (Role pending CL-008.)
-6. Why not microservices? When would you reconsider?
-7. What is *not* proven by your mocks?
-8. Which test has actually been executed, and with what result?
-9. Why must the coordinator confirm a partner change instead of applying it automatically?
-10. What happens if a student submits at the very moment a change is confirmed?
-11. Why is "returned" a different state from "withdrawn"?
-12. Two coordinators and one student are racing — which locks exist and in what order?

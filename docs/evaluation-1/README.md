@@ -8,4 +8,3 @@ Source of truth for the product definition. Other documents link here instead of
 | [`requirements-backlog-risks.xlsx`](requirements-backlog-risks.xlsx) | User stories (US-), product backlog and sprints, risk register (R-), success criteria (SC-), traceability matrix, **Change Log** sheet |
 | [`stakeholders-clarifications-assumptions.xlsx`](stakeholders-clarifications-assumptions.xlsx) | Stakeholders (STK-), clarification log (CL-), assumption log (ASM-), **Change Log** sheet |
 
-**How to read the workbooks.** Cells highlighted in light yellow were changed or added in revision 1.1; clear the highlight once the team has reviewed them. New stories, story points and sprints are *proposals* until the team re-estimates them.

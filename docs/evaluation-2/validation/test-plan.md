@@ -1,6 +1,6 @@
 # IMAMS — Initial Test Plan and Proof-of-Concept Proposal
 
-**Status of every test below: NOT EXECUTED** (unless the team records otherwise in `findings.md`). "Expected" is an assertion to verify, not a result. Targets are proposed values from `architecture-and-design.md` §3.
+**Status of every test below: NOT EXECUTED**. "Expected" is an assertion to verify, not a result. Targets are proposed values from `architecture-and-design.md` §3.
 
 ## 1. Proposed proof of concept (smallest experiment that challenges the riskiest assumptions)
 
@@ -19,7 +19,7 @@
 
 Use the **real database** that the design relies on — an in-memory fake cannot exercise the concurrency claim. Label every branch that stays "designed but not implemented".
 
-**Team's actual PoC status:** `[TEAM TO COMPLETE: not started / partial / done — link to prototype/README.md]`
+**Team's actual PoC status:** NOT STARTED
 
 ## 2. Test catalog
 
@@ -75,7 +75,7 @@ Use the **real database** that the design relies on — an in-memory fake cannot
 | T-ENV-01 | Start demo from clean environment with seed | One vertical slice works; DB/doc store not publicly exposed; mocks clearly marked | AD-07 |
 | T-REC-01 | Restart API and worker keeping volumes | Committed state retained; pending work resumes; no claim of data-loss recovery | QS-03/07 |
 
-## 3. Evidence record template (use for every load-bearing test)
+## 3. Evidence record template
 
 ```yaml
 test_id: T-QUO-01
@@ -93,4 +93,3 @@ limitations: []
 related: {requirements: [US-022, US-023], qualities: [QS-01], decisions: [E2-ADR-003]}
 ```
 
-A specified test is not a passing test: change `status` only after a real execution, and keep failed results.

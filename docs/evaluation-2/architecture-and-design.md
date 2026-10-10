@@ -6,12 +6,11 @@
 | Institution | Horizon University — Digital Horizon Initiative |
 | Project | DH-04 |
 | Team / members | Laura González Rico, Jesús Marquez, Daniel Oliveros, Paulina Valencia |
-| Document version / date | `[v0.1 — DATE]` |
-| Source commit (if any) | `[COMMIT OR "none"]` |
-| Status | **Design proposal, revision 2 (incorporates the client rules on partner changes, reapplication, multiple applications and single acceptance per term). Decisions marked *Proposed* until the team confirms them. No test has been executed unless `findings.md` says so.** |
+| Document version / date | v0.1 — October 11th 2026 |
+| Source commit (if any) | none |
+| Status | **Design proposal, revision 2 (incorporates the client rules on partner changes, reapplication, multiple applications and single acceptance per term).** |
 
 Companion documents: [`validation/test-plan.md`](validation/test-plan.md) · [`project-status.md`](project-status.md) (risks, backlog, plan, readiness).
-Source inputs: *Product Vision and Scope*, *Requirements/Backlog/Risk/Success-Criteria workbook* (US-xxx, R-xxx, SC-xx), *Stakeholder/Clarification/Assumption workbook* (STK-xx, CL-xxx, ASM-xxx).
 
 > **Central question:** Can we justify how IMAMS should be structured?
 > **Short answer:** a **modular monolith with a background worker**, one **relational database** that protects the critical invariants (quota, audit, versioned requirements) inside local transactions, a **separate document store**, and **ports/adapters** around the simulated SIS, identity provider, partner portal and notification gateway.
@@ -149,12 +148,11 @@ All targets are **proposed, not measured**.
 | Candidate | Fit | Cost / risk | Conclusion |
 |---|---|---|---|
 | Poorly modularized single app | Quick start | Rules for quota/versioning/audit become entangled | Reject the poor modularity, not the single deployment. |
-| **Modular monolith + worker** | Local transactions for quota + audit; one release; explicit module contracts | Boundaries need enforcement (tests/reviews) | **Selected (Proposed).** |
+| **Modular monolith + worker** | Local transactions for quota + audit; one release; explicit module contracts | Boundaries need enforcement (tests/reviews) | **Selected.** |
 | Independent microservices (opportunities, applications, nominations…) | Independent scaling/teams | Cross-service consistency for quota and audit; deployment/observability cost | No demonstrated need for a semester team. |
 | Serverless functions | Fits isolated async tasks | Splits the core workflow and transactions | Not for the core; maybe reminders later. |
 
 ## 4.2 Decision register
-Owner/date to be filled by the team; status is **Proposed** until confirmed.
 
 | ID | Decision | Drivers |
 |---|---|---|
