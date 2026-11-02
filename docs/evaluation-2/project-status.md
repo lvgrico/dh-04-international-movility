@@ -40,7 +40,7 @@ Existing risks R-001…R-009 stay in the project workbook. Changes and additions
 | R-016 *(new)* | Scholarship representative (STK-07) has no requirements | Medium | Low | Define stories or record as out of scope (CL-018) | Product Owner | Open |
 | R-017 *(new)* | A mistaken or forged confirmation returns every application of an opportunity and cannot be undone | Medium | High | Partner has no IMAMS account; impact preview; coordinator confirmation; ETag; audit (ADR-010) | Architect | Open |
 | R-018 *(new)* | Returning students already **admitted or accepted** (CL-021) invalidates partner admissions, visa evidence and student plans | Medium | High | Confirm intent with Coordinator and partners; consider a stronger confirmation for such cases | Product Owner | Open |
-| R-019 *(new)* | Cross-opportunity cascades (acceptance, return) risk deadlocks or inconsistent places | Medium | Medium | Documented lock order; T-ACC-01, T-CHG-02; PoC steps 5–7 | Technical lead | Open |
+| R-019 *(new)* | Cross-opportunity cascades (acceptance, return) risk deadlocks or inconsistent places | Medium | Medium | Documented lock order; T-ACC-01, T-CHG-02; PoC steps 5–7; **ENB-08 spike defined in test-plan.md §1b — must be executed before Evaluation 3** | Technical lead | **Spike defined — execution required** |
 | R-020 *(new)* | Meaning of "priority" and of "term" is ambiguous (CL-020, CL-022) | Medium | Medium | Written definitions confirmed with the Coordinator | Business Analyst | Open |
 
 ## 3. Open clarifications that affect the design
@@ -82,7 +82,7 @@ Revision 1.1 of the Evaluation 1 documents ([`../evaluation-1/`](../evaluation-1
 | ENB-05 | Outbox + worker + notification mock | ADR-007 | 3 | ENB-01 |
 | ENB-06 | Document store + secure streaming | ADR-008, US-013 | 2 | ENB-02 |
 | ENB-07 | Architecture dependency check in CI | ADR-002, T-ARCH-01 | 1–2 | — |
-| ENB-08 | Change-management and acceptance cascades (atomic return, unique acceptance) as a spike | ADR-010/011, T-CHG-02, T-ACC-01 | 2–3 | ENB-01, ENB-04 |
+| ENB-08 | Change-management and acceptance cascades (atomic return, unique acceptance) — **spike script defined in `test-plan.md §1b`; evidence goes in `validation/evidence/enb-08-cascade-spike/`** | ADR-010/011, T-CHG-02, T-ACC-01 | 2–3 | ENB-01, ENB-04 |
 
 ## 5. Plan to the next review
 
