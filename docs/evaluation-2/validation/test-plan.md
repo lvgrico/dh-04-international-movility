@@ -21,6 +21,106 @@ Use the **real database** that the design relies on — an in-memory fake cannot
 
 **Team's actual PoC status:** NOT STARTED
 
+---
+
+## 1b. ENB-08 — Cross-opportunity cascade spike (required before Evaluation 3)
+
+> **Professor feedback addressed here.** The grader identified that T-CHG-01/02/03 and T-ACC-01/02/03 (the most consequential cascades in the design) have no executed evidence. This spike section defines the **minimum executable experiment** that must be run and committed before the next review. Results go in `validation/evidence/enb-08-cascade-spike/`.
+
+**What must be demonstrated:**
+
+| Cascade | ADR | Key invariant |
+|---|---|---|
+| Material partner change returns all active applications atomically | ADR-010 | Zero applications pinned to superseded version; one audit row per application + one for the change |
+| Concurrent submission vs. change confirmation | ADR-010 | Each submission lands on exactly one version; none on a superseded-material version |
+| One-accepted-mobility unique constraint under concurrent accepts | ADR-011 | One `200`, one `409 TERM_ALREADY_ACCEPTED`; one active `MobilityAcceptance` row |
+| Acceptance triggers cascade withdrawal of other applications of that term | ADR-011 | Others marked `WITHDRAWN (ACCEPTED_ANOTHER, actor=system)`; places released |
+
+**Minimum spike script (Python / psycopg2, real PostgreSQL):**
+
+```python
+# spike/cascade_spike.py — ENB-08
+# Requires: PostgreSQL running, schema migrated (ENB-01), mock SIS up (ENB-03)
+# Run: python -I spike/cascade_spike.py
+
+import threading, psycopg2, time, assert_helpers as ah
+
+DSN = "postgresql://imams_app:secret@localhost/imams_test"
+
+# --- Step 1: seed ---
+# OPP-2027-03: 1 place, version 1 (GPA≥3.0, 60 credits)
+# STU-A, STU-B: eligible. STU-C: not eligible.
+# Create applications for STU-A and STU-B → READY (academic approval received).
+
+# --- Step 2: quota race (validates ENB-04 prerequisite) ---
+results = []
+barrier = threading.Barrier(2)
+def nominate(student_id):
+    conn = psycopg2.connect(DSN)
+    barrier.wait()
+    r = ah.post_nomination(conn, "OPP-2027-03", student_id)
+    results.append(r.status_code)
+    conn.close()
+threads = [threading.Thread(target=nominate, args=(s,)) for s in ("STU-A","STU-B")]
+[t.start() for t in threads]; [t.join() for t in threads]
+assert sorted(results) == [201, 409], f"Quota race failed: {results}"
+
+# --- Step 3: material change + concurrent submission race ---
+# Reset: revoke nomination, add STU-C application as DRAFT.
+# Thread A: confirm material change (GPA→3.3, new period opens)
+# Thread B: STU-B submits simultaneously
+submit_results, change_results = [], []
+barrier2 = threading.Barrier(2)
+def do_change():
+    conn = psycopg2.connect(DSN)
+    barrier2.wait()
+    r = ah.confirm_material_change(conn, "OPP-2027-03", etag=ah.get_etag("OPP-2027-03"))
+    change_results.append(r.status_code)
+    conn.close()
+def do_submit():
+    conn = psycopg2.connect(DSN)
+    barrier2.wait()
+    r = ah.submit_application(conn, "OPP-2027-03", "STU-B")
+    submit_results.append(r.status_code)
+    conn.close()
+threads2 = [threading.Thread(target=do_change), threading.Thread(target=do_submit)]
+[t.start() for t in threads2]; [t.join() for t in threads2]
+# Assert: no application is pinned to superseded version
+ah.assert_no_superseded_pins(DSN, "OPP-2027-03")
+# Assert: all non-draft active applications are RETURNED_FOR_REAPPLICATION
+ah.assert_all_returned(DSN, "OPP-2027-03")
+# Assert: draft (STU-C) is kept
+ah.assert_draft_kept(DSN, "OPP-2027-03", "STU-C")
+
+# --- Step 4: concurrent dual-accept race ---
+# OPP-2027-04 and OPP-2027-05: both admit STU-A for term 2027-S1.
+accept_results = []
+barrier3 = threading.Barrier(2)
+def do_accept(opp_id):
+    conn = psycopg2.connect(DSN)
+    barrier3.wait()
+    r = ah.accept_offer(conn, "STU-A", opp_id, term="2027-S1")
+    accept_results.append(r.status_code)
+    conn.close()
+threads3 = [threading.Thread(target=do_accept, args=(o,)) for o in ("OPP-2027-04","OPP-2027-05")]
+[t.start() for t in threads3]; [t.join() for t in threads3]
+assert sorted(accept_results) == [200, 409], f"Dual-accept race failed: {accept_results}"
+ah.assert_one_active_acceptance(DSN, "STU-A", "2027-S1")
+ah.assert_others_withdrawn(DSN, "STU-A", "2027-S1")
+
+print("ENB-08 cascade spike: ALL assertions passed")
+```
+
+**Evidence to commit** (in `validation/evidence/enb-08-cascade-spike/`):
+- `spike_run.log` — raw terminal output of the spike run
+- `db_state_after_change.json` — `SELECT * FROM applications WHERE opportunity_id='OPP-2027-03'` after the material change
+- `db_state_after_accept.json` — `SELECT * FROM mobility_acceptances WHERE student_subject='STU-A'`
+- `audit_rows.json` — audit rows generated during the spike
+
+**Owner:** Technical lead (Jesús). **Due:** Before Evaluation 3 (see project-status.md §5). **Blocks:** T-CHG-01, T-CHG-02, T-ACC-01 cannot be marked PASSED without this evidence.
+
+---
+
 ## 2. Test catalog
 
 ### 2.1 Quota, versions, eligibility

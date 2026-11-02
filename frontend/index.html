@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IMAMS — Horizon University</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+
+  <!-- Design tokens first, then layout, then components, then login styles -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<!-- ── Login screen ── -->
+<div id="login-screen" class="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="logo-mark">H</div>
+      <div>
+        <div class="t1">IMAMS</div>
+        <div class="t2">Horizon University · Sistema de Movilidad</div>
+      </div>
+    </div>
+    <div class="login-heading">Iniciar sesión</div>
+    <div class="login-sub">Ingresa con tu cuenta institucional</div>
+
+    <form class="login-form" id="login-form">
+      <div id="login-error" class="login-error"></div>
+      <div class="login-field">
+        <label for="login-email">Correo institucional</label>
+        <input id="login-email" type="email" placeholder="usuario@horizon.edu" autocomplete="username">
+      </div>
+      <div class="login-field">
+        <label for="login-password">Contraseña</label>
+        <input id="login-password" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button type="submit" class="login-btn">Ingresar</button>
+    </form>
+
+    <div class="login-demo-accounts">
+      <div class="login-demo-label">Accesos de demo</div>
+      <button class="demo-account-btn" onclick="quickLogin('student')">
+        <div class="avatar avatar-blue" style="width:32px;height:32px;font-size:12px">KM</div>
+        <div><div class="da-name">Katerina Morales</div><div class="da-role">Estudiante · 20210543@horizon.edu</div></div>
+      </button>
+      <button class="demo-account-btn" onclick="quickLogin('adviser')">
+        <div class="avatar avatar-mint" style="width:32px;height:32px;font-size:12px">LC</div>
+        <div><div class="da-name">Laura Castillo</div><div class="da-role">Asesora de Movilidad · l.castillo@horizon.edu</div></div>
+      </button>
+      <button class="demo-account-btn" onclick="quickLogin('coordinator')">
+        <div class="avatar avatar-purple" style="width:32px;height:32px;font-size:12px">PV</div>
+        <div><div class="da-name">Pablo Vargas</div><div class="da-role">Coordinador de Movilidad · p.vargas@horizon.edu</div></div>
+      </button>
+      <button class="demo-account-btn" onclick="quickLogin('academic')">
+        <div class="avatar avatar-amber" style="width:32px;height:32px;font-size:12px">AM</div>
+        <div><div class="da-name">Ana Méndez</div><div class="da-role">Coordinadora Académica · a.mendez@horizon.edu</div></div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── App shell (hidden until login) ── -->
+<div id="app-shell" class="app" hidden>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-mark">H</div>
+      <div class="logo-name">IMAMS</div>
+      <div class="logo-sub">Movilidad Internacional</div>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <!-- Populated by router.js → buildNav() -->
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="user-card" id="user-card">
+        <!-- Populated by router.js → buildNav() -->
+      </div>
+      <button class="logout-btn" onclick="doLogout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div id="app-content" class="page">
+      <!-- Rendered by router.js → renderPage() -->
+    </div>
+  </main>
+
+</div>
+
+<!-- ─────────────────────────────────────────
+     JS load order (no build tool — plain scripts):
+     1. Config (roles, icons) — no dependencies
+     2. helpers.js — initialises `pages` object
+     3. Views — populate `pages` (depend on helpers + icons)
+     4. router.js — uses `pages`, `roles`, `icon`, `avatar`, `statusBadge`
+     5. auth.js — uses `enterApp` from router, calls quickLogin/doLogin
+───────────────────────────────────────── -->
+
+<!-- 1. Config -->
+<script src="js/config/roles.js"></script>
+<script src="js/config/icons.js"></script>
+
+<!-- 2. Helpers -->
+<script src="js/helpers.js"></script>
+
+<!-- 3. Views — Student -->
+<script src="js/views/student/home.js"></script>
+<script src="js/views/student/opportunities.js"></script>
+<script src="js/views/student/applications.js"></script>
+<script src="js/views/student/documents.js"></script>
+<script src="js/views/student/predeparture.js"></script>
+
+<!-- 3. Views — Adviser -->
+<script src="js/views/adviser/home.js"></script>
+<script src="js/views/adviser/queue.js"></script>
+<script src="js/views/adviser/applications.js"></script>
+<script src="js/views/adviser/nominations.js"></script>
+
+<!-- 3. Views — Coordinator -->
+<script src="js/views/coordinator/home.js"></script>
+<script src="js/views/coordinator/opportunities.js"></script>
+<script src="js/views/coordinator/decisions.js"></script>
+<script src="js/views/coordinator/reports.js"></script>
+
+<!-- 3. Views — Academic -->
+<script src="js/views/academic/home.js"></script>
+<script src="js/views/academic/reviews.js"></script>
+<script src="js/views/academic/history.js"></script>
+
+<!-- 4. Router -->
+<script src="js/router.js"></script>
+
+<!-- 5. Auth (must be last — wires up form listener) -->
+<script src="js/auth.js"></script>
+
+</body>
+</html>
