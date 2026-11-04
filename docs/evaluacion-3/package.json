@@ -1,0 +1,28 @@
+{
+  "name": "imams-increment-1",
+  "version": "0.3.0",
+  "private": true,
+  "description": "IMAMS - first executable increment (Evaluation 3), DH-04",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "db:migrate": "tsx src/infrastructure/db/migrate.ts",
+    "db:reset": "tsx src/infrastructure/db/migrate.ts --reset",
+    "start": "tsx src/main.ts",
+    "worker": "tsx src/worker.ts",
+    "demo": "tsx scripts/demo.ts",
+    "test": "node --import tsx --test --test-concurrency=1 tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.10.0",
+    "@types/pg": "^8.11.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

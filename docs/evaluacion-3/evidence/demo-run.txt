@@ -1,0 +1,47 @@
+# Demo run - scripts/demo.ts against a live server (synthetic data)
+# Date: 2026-11-04T01:19:56Z   Node v22.23.4   PostgreSQL 16.15
+# Command: npm run db:reset && npm start && npm run demo
+
+
+=== 1. Valid flow: apply -> validate (simulated SIS) -> triage -> academic approval -> nominate ===
+stu-0001 submits                               -> HTTP 200  {"state":"SUBMITTED","eligibility":"ELIGIBLE"}
+adviser triage ACCEPT                          -> HTTP 200  "IN_ACADEMIC_REVIEW"
+acad-eng academic APPROVED                     -> HTTP 200  "READY_FOR_NOMINATION"
+coordinator nominates (1 place free)           -> HTTP 201  {"nominationId":"NOM-C9BBCDE6","status":"AWAITING_HOST_DECISION","override":false}
+student status                                 -> HTTP 200  {"nomination":"Nominated by Horizon - not yet admitted","hostDecision":null,"nextAction":"Waiting for the host university decision (you are NOT admitted yet)"}
+
+=== 2. Domain rule: a second candidate for the same (now full) opportunity is rejected ===
+stu-0002 submits                               -> HTTP 200  {"state":"SUBMITTED","eligibility":"ELIGIBLE"}
+adviser triage ACCEPT                          -> HTTP 200  "IN_ACADEMIC_REVIEW"
+acad-eng academic APPROVED                     -> HTTP 200  "READY_FOR_NOMINATION"
+coordinator nominates (0 places free)          -> HTTP 409  {"code":"QUOTA_EXCEEDED","detail":"An authorized override with a written justification is required. No nomination was created."}
+places utilisation                             -> HTTP 200  {"opportunityId":"OPP-2027-01","places":1,"activeNominations":1}
+
+=== 3. Alternative case: ineligible student cannot advance ===
+stu-0004 submits                               -> HTTP 200  {"outcome":"INELIGIBLE","criteria":{"minGpa":"FAIL","enrolled":"PASS","minCredits":"PASS"},"sisReference":"SIS-SIM-0001"}
+adviser triage ACCEPT                          -> HTTP 409  "ELIGIBILITY_NOT_CONFIRMED"
+
+=== 4. Access control ===
+stu-0002 reads stu-0001's application          -> HTTP 404  "RESOURCE_NOT_FOUND"
+student tries to nominate                      -> HTTP 403  "ACTION_FORBIDDEN"
+coordinator WITHOUT override permission        -> HTTP 403  "OVERRIDE_NOT_PERMITTED"
+
+=== 5. Resilience: SIS outage does not lose the submission ===
+stu-0003 submits while SIS is DOWN             -> HTTP 200  {"state":"SUBMITTED","eligibility":"PENDING_VALIDATION","next":"Waiting for automatic eligibility validation"}
+worker runs after SIS is back                  -> HTTP 200  {"eligibilityResolved":1,"outbox":{"delivered":13,"failed":0}}
+student status now                             -> HTTP 200  "ELIGIBLE"
+
+=== 6. Host decision and acceptance (nomination is not admission) ===
+host admits                                    -> HTTP 201  {"nominationId":"NOM-C9BBCDE6","status":"ADMITTED","offerExpiresAt":"2026-11-18T01:19:57.905Z"}
+student accepts                                -> HTTP 200  {"nominationId":"NOM-C9BBCDE6","status":"ACCEPTED","acceptanceId":"ACC-AA858981","withdrawnApplications":[]}
+student status                                 -> HTTP 200  {"nomination":"ACCEPTED","acceptance":"ACTIVE"}
+
+=== 7. Audit trail of the nominated application ===
+  #1  stu-0001      application.draft_created  corr-ab45615b
+  #2  stu-0001      application.submitted      corr-8fd98dba
+  #3  system        eligibility.checked        corr-8fd98dba
+  #4  adv-01        triage.accept              corr-2860ad06
+  #5  acad-eng      academic.approved          corr-833695c4
+  #6  coord-01      nomination.created         corr-40d5d9e3
+  #18  coord-01      host_decision.admitted     corr-95a77ada
+  #19  stu-0001      offer.accepted             corr-c2426e14

@@ -1,0 +1,68 @@
+# Full test run - npm test (spec reporter)
+# Date: 2026-11-04T01:21:00Z   Node v22.23.4   PostgreSQL 16.15
+# Command: QUOTA_TRIALS=100 ACCEPT_TRIALS=50 npm test
+# Environment: real PostgreSQL 16, independent connections (pool of 20), runtime role imams_app (least privilege)
+
+# ACCEPT_TRIALS=50 -> each trial: 1 acceptance, 1 TERM_ALREADY_ACCEPTED, 0 deadlocks
+▶ single acceptance per student per term (QS-08, E2-ADR-011, BR-16)
+  ✔ T-ACC-01 accepting two offers of the same term AT THE SAME MOMENT: exactly one 200 and one 409, every trial, no deadlock (4438.271488ms)
+  ✔ T-ACC-02 accepting one offer withdraws the other application, revokes its nomination and releases its place (same transaction) (77.169904ms)
+  ✔ T-ACC-03 a student of a DIFFERENT term can still accept another mobility (rule is per term) (138.82242ms)
+  ✔ T-ACC-04 an expired offer is rejected by SERVER time (OFFER_EXPIRED) and releases its place (QS-09) (76.676495ms)
+  ✔ T-ACC-05 only the owner can accept, and only an ADMITTED offer (a merely nominated one cannot be accepted) (40.525353ms)
+  ✔ T-ACC-06 the worker expires overdue offers WITHOUT any student action, releasing the place (E2-ADR-011) (64.294935ms)
+✔ single acceptance per student per term (QS-08, E2-ADR-011, BR-16) (4926.640828ms)
+▶ domain rules (pure, no database)
+  ✔ T-ELIG-01 eligible when every criterion passes; result holds pass/fail only (1.066846ms)
+  ✔ T-ELIG-02 ineligible names the failing criterion (0.138785ms)
+  ✔ T-STATE-01 illegal application transitions are rejected (0.536002ms)
+  ✔ T-STAT-01 "nominated" is never labelled as "admitted" (BR-03) (0.311343ms)
+✔ domain rules (pure, no database) (2.888021ms)
+▶ architecture conformance
+  ✔ T-ARCH-01 domain imports nothing from HTTP, SQL or providers (design §5.4) (0.533964ms)
+  ✔ T-ARCH-02 application layer never imports the HTTP layer (0.413097ms)
+✔ architecture conformance (1.184218ms)
+▶ end-to-end use case: apply -> validate -> review -> nominate -> host decision -> accept
+  ✔ T-LIFE-01 a valid application completes the whole flow, with distinct statuses and a full audit trail (282.32915ms)
+  ✔ T-LIFE-02 an ineligible student is flagged and cannot advance past triage (CL-015) (52.654283ms)
+  ✔ T-LIFE-03 invalid submissions are refused: short statement (422) and closed period (409) (45.635705ms)
+  ✔ T-LIFE-04 skipping steps is refused: an unapproved application cannot be nominated (BR-02) (43.361644ms)
+  ✔ T-LIFE-05 a student can hold several active applications (BR-16 allows it until one is accepted) (64.145155ms)
+✔ end-to-end use case: apply -> validate -> review -> nominate -> host decision -> accept (579.464793ms)
+# QUOTA_TRIALS=100 -> 100 nominations created, 100 QUOTA_EXCEEDED, 0 violations
+▶ quota integrity (QS-01, E2-ADR-003, BR-04)
+  ✔ T-QUO-01 two coordinators nominate for the LAST place at the same moment: exactly one 201 and one 409, every trial (6370.434668ms)
+  ✔ T-QUO-02 the loser leaves NO residue: no nomination, no success audit, no outbox event (rolled-back transaction) (52.708851ms)
+  ✔ T-QUO-03 override: needs the permission AND a justification; it is stored and audited (85.844552ms)
+  ✔ T-QUO-04 a refused nomination releases its place, which can then be nominated again (CL-014) (80.208309ms)
+  ✔ T-QUO-05 the same application cannot hold two active nominations (unique partial index) (35.285112ms)
+✔ quota integrity (QS-01, E2-ADR-003, BR-04) (6708.476614ms)
+▶ resilience of integrations (QS-03, QS-07, BR-11)
+  ✔ T-INT-01 SIS down at submission: the submission persists as PENDING_VALIDATION, then the worker validates it once the SIS is back (208.297867ms)
+  ✔ T-INT-02 a malformed SIS payload is treated as unavailable, never as data (34.03049ms)
+  ✔ T-INT-03 the retry is idempotent: running the worker twice does not duplicate the result (9.354221ms)
+  ✔ T-NOT-01 notification gateway down: the nomination stays committed; delivery goes to RETRY_WAIT and succeeds later (76.631746ms)
+✔ resilience of integrations (QS-03, QS-07, BR-11) (416.349909ms)
+▶ audit integrity and least privilege (QS-04, E2-ADR-006)
+  ✔ T-AUD-01 the application DB role cannot UPDATE or DELETE audit events, nor alter requirement versions (17.053934ms)
+  ✔ T-AUD-02 every state-changing command left an audit entry with actor, correlation id and before/after (2.509185ms)
+  ✔ T-DATA-01 raw GPA and credits are never persisted by IMAMS (BR-06, CL-017) (6.482513ms)
+✔ audit integrity and least privilege (QS-04, E2-ADR-006) (26.471413ms)
+▶ access control by role and relationship (QS-05, BR-14) - negative matrix
+  ✔ T-SEC-01 no token or an invalid token -> 401 (11.73459ms)
+  ✔ T-SEC-02 a student cannot nominate, record host decisions or publish opportunities -> 403, and nothing changes (10.095617ms)
+  ✔ T-SEC-03 a student cannot read another student's application: 404 (existence concealed) (14.032669ms)
+  ✔ T-SEC-04 a student cannot submit or accept on behalf of another student -> 404 (4.670493ms)
+  ✔ T-SEC-05 an academic coordinator of ANOTHER programme cannot decide (scope) -> 403 (59.593317ms)
+  ✔ T-SEC-06 an adviser outside the opportunity assignment cannot triage or read it -> 403 (38.651676ms)
+  ✔ T-SEC-07 a role sent in the request body is ignored; roles come from the server (BR-14) (13.517443ms)
+  ✔ T-SEC-08 audit history is not readable by students (3.865751ms)
+✔ access control by role and relationship (QS-05, BR-14) - negative matrix (462.946446ms)
+ℹ tests 37
+ℹ suites 8
+ℹ pass 37
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15138.148884
