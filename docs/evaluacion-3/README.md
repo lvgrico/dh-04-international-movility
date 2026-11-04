@@ -16,8 +16,6 @@ All data is synthetic. SIS, notification gateway and identity are simulated (see
 | See what is implemented / simulated / designed / pending, defects and risks | `docs/limitations-and-risks.md` |
 | Run the system | below |
 | See test and demo results | `evidence/` (`test-run.txt`, `demo-run.txt`, `lock-order-experiment.md`) |
-| Record the video | `docs/video-script.md` |
-| Integrate into the GitHub repo | `docs/repo-integration.md` |
 
 ```
 evaluacion-3/
@@ -26,7 +24,7 @@ evaluacion-3/
 ├── src/       domain/  application/  infrastructure/  http/  main.ts  worker.ts
 ├── tests/     37 tests (node:test) — real PostgreSQL, real HTTP
 ├── scripts/   demo.ts
-├── docs/      architecture-update.md  traceability.md  limitations-and-risks.md  video-script.md  repo-integration.md
+├── docs/      architecture-update.md  traceability.md  limitations-and-risks.md
 ├── evidence/  test-run.txt  demo-run.txt  lock-order-experiment.md
 └── video-link-or-video.txt
 ```
