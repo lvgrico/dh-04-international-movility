@@ -60,7 +60,7 @@ npm test                                              # 37 tests, ~10 s
 QUOTA_TRIALS=100 ACCEPT_TRIALS=50 npm test            # the evidence run
 ```
 Expected: `pass 37, fail 0`. Tests use database `imams_test` (reset at the start of each file) and connect as the least-privilege role `imams_app`. Override URLs with `TEST_DATABASE_URL` / `TEST_DATABASE_ADMIN_URL`.
-Run recorded in `evidence/test-run.txt` (2026-11-04, Node 22, PostgreSQL 16.15).
+Run recorded in `evidence/test-run.txt` (2026-11-04, Node 22, PostgreSQL 18.01).
 
 ## 4. Known limitations (short)
 No web UI · login is simulated (no password/CSRF) · documents, partner-change flow, partner selection, pre-departure, reports and reminders are **designed, not built** · concurrency evidence comes from 100/50 trials on one machine. Details and open risks: `docs/limitations-and-risks.md`.

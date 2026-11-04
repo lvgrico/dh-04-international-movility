@@ -9,8 +9,8 @@
 | Source | `src/` in this delivery; tag `evaluation-3` |
 | Scope rule | Every statement below is labelled **implemented**, **verified** (a test in `tests/` exercises it, result in `evidence/test-run.txt`), **simulated**, **designed** or **pending**. A diagram or a test plan never establishes that behaviour works. |
 
-> **Central question of this evaluation.** *Did the proposed architecture become a real, verifiable software increment?*
-> **Short answer.** Yes for the risk we chose: the **quota-integrity / single-acceptance / audit / least-privilege core** of the lifecycle was built end to end on the architecture of Evaluation 2 (modular monolith, relational transactions, ports/adapters, outbox). Change management (E2-ADR-010), documents (E2-ADR-008) and the web UI are **designed, not built**.
+>*Did the proposed architecture become a real, verifiable software increment?*
+>  Yes for the risk we chose: the **quota-integrity / single-acceptance / audit / least-privilege core** of the lifecycle was built end to end on the architecture of Evaluation 2 (modular monolith, relational transactions, ports/adapters, outbox). Change management (E2-ADR-010), documents (E2-ADR-008) and the web UI are **designed, not built**.
 
 ---
 
