@@ -1,7 +1,7 @@
 # IMAMS — Evaluation 3: architecture update + first executable increment
 
 **Team:** Laura González Rico · Jesús Marquez · Daniel Oliveros · Paulina Valencia — **Project DH-04** (International Mobility Application Management System), Software Design II, Horizon University.
-**Version:** increment 1 (v0.3.0). **Commit:** `[TEAM: commit hash of this ZIP]`. **Video:** see `video-link-or-video.txt`.
+**Version:** increment 1 (v0.3.0). **Commit:** tag `evaluation-3`. **Video:** see `video-link-or-video.txt`.
 
 **Use case implemented:** outbound mobility application, end to end —
 `publish opportunity → draft → submit → eligibility (simulated SIS) → triage → academic decision → nomination against quota → host decision → student acceptance (one per term)` — with audit trail, role/scope authorization, SIS-outage and notification-failure handling.

@@ -6,7 +6,7 @@
 |---|---|
 | Team | Laura González Rico, Jesús Marquez, Daniel Oliveros, Paulina Valencia |
 | Document version | v0.2 — increment 1 (supersedes the *implementation* statements of Evaluation 2 `architecture-and-design.md` v0.1) |
-| Source | `src/` in this delivery; commit hash: `[TEAM: paste the commit hash of the submitted ZIP]` |
+| Source | `src/` in this delivery; tag `evaluation-3` |
 | Scope rule | Every statement below is labelled **implemented**, **verified** (a test in `tests/` exercises it, result in `evidence/test-run.txt`), **simulated**, **designed** or **pending**. A diagram or a test plan never establishes that behaviour works. |
 
 > **Central question of this evaluation.** *Did the proposed architecture become a real, verifiable software increment?*
