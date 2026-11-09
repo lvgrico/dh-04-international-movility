@@ -10,10 +10,10 @@ IMAMS manages the **outbound international mobility** lifecycle: opportunities p
 
 | Name | Role / responsibility |
 |---|---|
-| Laura González Rico | `[ROLE]` |
-| Jesús Marquez | `[ROLE]` |
-| Daniel Oliveros | `[ROLE]` |
-| Paulina Valencia | `[ROLE]` |
+| Laura González Rico | Product Owner / requirements analyst · Frontend lead |
+| Jesús Marquez | Technical lead / architect |
+| Daniel Oliveros | Security & QA (authorization, privacy, test plan) |
+| Paulina Valencia | Backend developer · Proof-of-concept owner |
 
 ## Where is everything?
 

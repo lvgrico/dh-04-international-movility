@@ -1,7 +1,7 @@
 # IMAMS — Evaluation 3: architecture update + first executable increment
 
 **Team:** Laura González Rico · Jesús Marquez · Daniel Oliveros · Paulina Valencia — **Project DH-04** (International Mobility Application Management System), Software Design II, Horizon University.
-**Version:** increment 1 (v0.3.0). **Commit:** tag `evaluation-3`. **Video:** see `video-link-or-video.txt`.
+**Version:** increment 1 (v0.3.0). **Commit:** tag `evaluation-3`. **Video:** see `evidence/evaluation-3-video-link.md`.
 
 **Use case implemented:** outbound mobility application, end to end —
 `publish opportunity → draft → submit → eligibility (simulated SIS) → triage → academic decision → nomination against quota → host decision → student acceptance (one per term)` — with audit trail, role/scope authorization, SIS-outage and notification-failure handling.
@@ -15,7 +15,7 @@ All data is synthetic. SIS, notification gateway and identity are simulated (see
 | See requirement → decision → component → code → test | `docs/traceability.md` |
 | See what is implemented / simulated / designed / pending, defects and risks | `docs/limitations-and-risks.md` |
 | Run the system | below |
-| See test and demo results | `evidence/` (`test-run.txt`, `demo-run.txt`, `lock-order-experiment.md`) |
+| See test and demo results | `evidence/` (`test-run.txt`, `demo-run.txt`, `lock-order-experiment.md`, `evaluation-3-video-link.md`) |
 
 ```
 evaluacion-3/
@@ -25,8 +25,7 @@ evaluacion-3/
 ├── tests/     37 tests (node:test) — real PostgreSQL, real HTTP
 ├── scripts/   demo.ts
 ├── docs/      architecture-update.md  traceability.md  limitations-and-risks.md
-├── evidence/  test-run.txt  demo-run.txt  lock-order-experiment.md
-└── video-link-or-video.txt
+└── evidence/  test-run.txt  demo-run.txt  lock-order-experiment.md  evaluation-3-video-link.md
 ```
 
 ## 1. Preparation
