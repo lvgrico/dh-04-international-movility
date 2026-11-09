@@ -10,7 +10,7 @@
 | Scope rule | Every statement below is labelled **implemented**, **verified** (a test in `tests/` exercises it, result in `evidence/test-run.txt`), **simulated**, **designed** or **pending**. A diagram or a test plan never establishes that behaviour works. |
 
 >*Did the proposed architecture become a real, verifiable software increment?*
->  Yes for the risk we chose: the **quota-integrity / single-acceptance / audit / least-privilege core** of the lifecycle was built end to end on the architecture of Evaluation 2 (modular monolith, relational transactions, ports/adapters, outbox). Change management (E2-ADR-010), documents (E2-ADR-008) and the web UI are **designed, not built**.
+>  Yes for the risk we chose: the **quota-integrity / single-acceptance / audit / least-privilege core** of the lifecycle was built end to end on the architecture of Evaluation 2 (modular monolith, relational transactions, ports/adapters, outbox). Change management (E2-ADR-010), documents (E2-ADR-008) are **designed, not built**; the web UI exists only as a static clickable prototype (`frontend/`) not yet connected to the API.
 
 ---
 
@@ -40,7 +40,7 @@
 | Document versions and expiry (ADR-008, BR-07/08) | **Designed, pending** | — |
 | Partner change proposal → impact preview → atomic return (ADR-010, BR-05/15/19) | **Designed, pending** | — |
 | Partner selection (BR-18), decline, pre-departure checklist, reminders, reports | **Designed, pending** | — |
-| Web UI (C-WEB) | **Pending** — increment is exercised through the HTTP API, `scripts/demo.ts` and the tests | — |
+| Web UI (C-WEB) | **Static prototype** — role-based screens in `frontend/` (plain HTML/CSS/JS, hard-coded data, demo login); not connected to the API. The increment is exercised through the HTTP API, `scripts/demo.ts` and the tests | — |
 | `If-Match` / `Idempotency-Key` headers | **Pending** — `row_version` columns exist but are not yet used for optimistic concurrency | — |
 
 ---

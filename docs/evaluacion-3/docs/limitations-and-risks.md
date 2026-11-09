@@ -6,14 +6,14 @@
 |---|---|
 | **Implemented and verified** | Publish opportunity; draft/submit; eligibility rule; triage; academic decision; nomination with quota lock and audited override; host decision; acceptance with single-per-term rule and cascade; offer expiry job; status and audit queries; outbox delivery with retry; role/scope authorization; append-only audit via DB grants |
 | **Simulated** | SIS (`MockSis`: fixtures for 4 synthetic students, outage and malformed modes); notification gateway (`SimulatedNotifier`); institutional identity (login by synthetic subject); partner host decisions (entered by the coordinator through the API) |
-| **Designed, not built** | Partner change flow (ADR-010) and application return/reapplication; documents and expiry (ADR-008); partner selection (BR-18); decline, student withdrawal, resubmission of rejected applications (BR-17); pre-departure checklist; deadline reminders; operational reports; `If-Match`/`Idempotency-Key`; web UI |
+| **Designed, not built** | Partner change flow (ADR-010) and application return/reapplication; documents and expiry (ADR-008); partner selection (BR-18); decline, student withdrawal, resubmission of rejected applications (BR-17); pre-departure checklist; deadline reminders; operational reports; `If-Match`/`Idempotency-Key`; web UI connected to the API (only a static prototype exists in `frontend/`) |
 | **Pending decisions with the client** | CL-008 (who may override), CL-016 (delayed/at-risk thresholds), CL-019…CL-025 (see E2), **CL-026 (new)**: may IMAMS store the student's programme copied from the SIS as a routing attribute? |
 
 ## 2. Known limitations (L) and defects (D)
 
 | ID | Description | Impact | Next step |
 |---|---|---|---|
-| L-1 | No web UI; the increment is exercised through HTTP, `scripts/demo.ts` and tests | QS-06 (status clarity) not tested with users | Build the student status screen on `GET /applications/{id}/status` |
+| L-1 | Web UI is a static prototype (`frontend/`, hard-coded data) not connected to the API; the increment is exercised through HTTP, `scripts/demo.ts` and tests | QS-06 (status clarity) not tested with users | Build the student status screen on `GET /applications/{id}/status` |
 | L-2 | Login has no password, no token expiry, no CSRF protection | Acceptable only with synthetic data and no browser client | Add expiry + CSRF when the UI exists (R-E3-04) |
 | L-3 | Nomination does not check documents (BR-02 partly built) | A nomination can be made without document review | Implement Documents module (ADR-008) |
 | L-4 | Concurrency tests run on one machine against one PostgreSQL; "100 trials" is a sample, not a proof | Residual risk of rare interleavings | Keep trials configurable (`QUOTA_TRIALS`, `ACCEPT_TRIALS`) and run in CI |

@@ -62,4 +62,4 @@ Expected: `pass 37, fail 0`. Tests use database `imams_test` (reset at the start
 Run recorded in `evidence/test-run.txt` (2026-11-04, Node 22, PostgreSQL 18.01).
 
 ## 4. Known limitations (short)
-No web UI · login is simulated (no password/CSRF) · documents, partner-change flow, partner selection, pre-departure, reports and reminders are **designed, not built** · concurrency evidence comes from 100/50 trials on one machine. Details and open risks: `docs/limitations-and-risks.md`.
+Web UI is a **static clickable prototype** (`../../frontend/`, open `index.html`; hard-coded synthetic data, demo login, **not connected to the API**) · API login is simulated (no password/CSRF) · documents, partner-change flow, partner selection, pre-departure, reports and reminders are **designed, not built** · concurrency evidence comes from 100/50 trials on one machine. Details and open risks: `docs/limitations-and-risks.md`.
