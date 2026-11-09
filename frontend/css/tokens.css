@@ -1,0 +1,112 @@
+/* ── Design tokens — IMAMS ── */
+
+/* ── Light theme (default) ── */
+:root {
+  color-scheme: light;
+
+  /* Backgrounds */
+  --bg:        #f5f6f8;
+  --surface:   #ffffff;
+  --surface-2: #f0f1f4;
+
+  /* Text */
+  --fg:   #111827;
+  --fg-2: #374151;
+  --fg-3: #6b7280;
+  --fg-4: #9ca3af;
+
+  /* Borders */
+  --border:       #e5e7eb;
+  --border-light: #f3f4f6;
+
+  /* Accent — blue */
+  --accent:      #2563eb;
+  --accent-dim:  #3b82f6;
+  --accent-light:#eff6ff;
+
+  /* Semantic colours */
+  --mint:        #059669;
+  --mint-light:  #ecfdf5;
+  --purple:      #7c3aed;
+  --purple-light:#f5f3ff;
+  --amber:       #d97706;
+  --amber-light: #fffbeb;
+  --red:         #dc2626;
+  --red-light:   #fef2f2;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow:    0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+
+  /* Layout */
+  --sidebar:    224px;
+  --radius:     10px;
+  --radius-sm:  6px;
+}
+
+/* ── Dark theme ── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --bg:        #0f1117;
+    --surface:   #1a1d27;
+    --surface-2: #22263a;
+
+    --fg:   #f1f5f9;
+    --fg-2: #cbd5e1;
+    --fg-3: #94a3b8;
+    --fg-4: #64748b;
+
+    --border:       #2d3349;
+    --border-light: #232740;
+
+    --accent:      #3b82f6;
+    --accent-dim:  #60a5fa;
+    --accent-light:#1e3a5f;
+
+    --mint:        #10b981;
+    --mint-light:  #064e3b;
+    --purple:      #a78bfa;
+    --purple-light:#3b1f6e;
+    --amber:       #fbbf24;
+    --amber-light: #451a03;
+    --red:         #f87171;
+    --red-light:   #450a0a;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+    --shadow:    0 4px 12px rgba(0,0,0,.4);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg:        #0f1117;
+  --surface:   #1a1d27;
+  --surface-2: #22263a;
+
+  --fg:   #f1f5f9;
+  --fg-2: #cbd5e1;
+  --fg-3: #94a3b8;
+  --fg-4: #64748b;
+
+  --border:       #2d3349;
+  --border-light: #232740;
+
+  --accent:      #3b82f6;
+  --accent-dim:  #60a5fa;
+  --accent-light:#1e3a5f;
+
+  --mint:        #10b981;
+  --mint-light:  #064e3b;
+  --purple:      #a78bfa;
+  --purple-light:#3b1f6e;
+  --amber:       #fbbf24;
+  --amber-light: #451a03;
+  --red:         #f87171;
+  --red-light:   #450a0a;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.3);
+  --shadow:    0 4px 12px rgba(0,0,0,.4);
+}
