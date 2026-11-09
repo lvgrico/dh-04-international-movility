@@ -4,7 +4,7 @@
 
 | Item | Value |
 |---|---|
-| Video link | `[VIDEO LINK]` |
+| Video link | https://youtu.be/8wgLCgd3GSU |
 | Duration | `[DURATION]` |
 | Recorded on | `[DATE]` |
 | Presenters | `[NAMES]` |
